@@ -3,32 +3,21 @@ import ReactDOM from 'react-dom';
 
 class App extends React.Component {
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
+  //   //This is the only time you can directly assign state
+  //   this.state = { lat: null, errorMessage: '' };
+  // }
 
-    //This is the only time you can directly assign state
-    this.state = { lat: null, errorMessage: '' };
-
-    window.navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // We called setstate!!
-        this.setState({ lat: position.coords.latitude});
-
-        //We did not try to change the value of the state directly
-        //this.state.lat = position.coords.latitude // This is bad/impossible!
-      },
-      (err) => {
-        this.setState({ errorMessage: err.message });
-      }
-    );
-  }
+  // not this.state
+  // so you can directly assign when you're initializing?
+  state = { lat:null, errorMessage: ''}
 
   componentDidMount() {
-    console.log('My component was rendered to the screen');
-  }
-
-  componentDidUpdate() {
-    console.log('My component was just updated!');
+    window.navigator.geolocation.getCurrentPosition(
+      position => this.setState({ lat: position.coords.latitude}),
+      err => this.setState({ errorMessage: err.message })
+    );
   }
 
   // React says we have to define render!!
